@@ -41,7 +41,7 @@ jobs:
       - name: "Valida se os testes passaram"
         if: ${{ steps.coverage.outputs.coverage < env.COVERAGE_MIN }}
         run: |
-          echo: "Cobertura minima não atendida: Esperado - ${{ env.COVERAGE_MIN}}%. Atingido: ${{ steps.coverage.outputs.coverage }}%"
+          echo "Cobertura minima não atendida: Esperado - ${{ env.COVERAGE_MIN }}%. Atingido: ${{ steps.coverage.outputs.coverage }}%"
           exit 1
 
   generate-certificate: # DAQUI PARA BAIXO, NÃO ALTERAR
