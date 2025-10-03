@@ -31,7 +31,7 @@ jobs:
           REPO=$(echo "${{ github.event.repository.name }}" | tr '[:upper:]' '[:lower:]')
           REGISTRY=ghcr.io
           TAG=${GITHUB_SHA}
-
+          
           echo "REGISTRY=$REGISTRY" >> $GITHUB_ENV
           echo "OWNER=$OWNER" >> $GITHUB_ENV
           echo "TAG=$TAG" >> $GITHUB_ENV
@@ -69,7 +69,7 @@ jobs:
           context: .
           file: ./Dockerfile
           load: true
-          tags: ${{ env.REGISTRY }}/${{ env.OWNER }}/${{ secrets.IMAGE_NAME }}:${{ env.TAG }}
+          tags: ${{ env.REGISTRY }}/${{ env.OWNER }}/${{ env.IMAGE_NAME }}:${{ env.TAG }}
 
       - name: Scan de vulnerabilidades com Trivy
         uses: aquasecurity/trivy-action@0.33.1
