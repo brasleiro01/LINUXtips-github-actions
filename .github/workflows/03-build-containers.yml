@@ -26,7 +26,7 @@ jobs:
         with:
           registry: ${{ env.REGISTRY }}
           username: brasleiro01
-          password: ${{ env.TOKEN_PAT }}
+          password: ${{ secrets.TOKEN_PAT }}
           
       # AQUI VAI O CÓDIGO DO DESAFIO :)
 
