@@ -45,8 +45,10 @@ jobs:
         run: |
           cat lint-report.txt
           if grep -q "DL3006\|DL3008" lint-report.txt; then
-            echo "❌ Erros críticos encontrados no Dockerfile!"
+            echo "❌ Erros críticos encontrados no Dockerfile (DL3006 ou DL3008)!"
             exit 1
+          else
+            echo "✅ Dockerfile passou no lint!"
           fi
           
       # AQUI VAI O CÓDIGO DO DESAFIO :)
