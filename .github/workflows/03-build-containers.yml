@@ -24,12 +24,25 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       
+      - name: Definir variáveis da imagem
+        id: vars
+        run: |
+          OWNER=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
+          REPO=$(echo "${{ github.event.repository.name }}" | tr '[:upper:]' '[:lower:]')
+          REGISTRY=ghcr.io
+          TAG=${GITHUB_SHA::7}
+
+          echo "REGISTRY=$REGISTRY" >> $GITHUB_ENV
+          echo "OWNER=$OWNER" >> $GITHUB_ENV
+          echo "IMAGE_NAME=$REPO" >> $GITHUB_ENV
+          echo "TAG=$TAG" >> $GITHUB_ENV
+
       - name: Docker Login
         uses: docker/login-action@v3.6.0
         with:
           registry: ${{ env.REGISTRY }}
           username: brasleiro01
-          password: ${{ secrets.TOKEN_PAT }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Rodar Hadolint
         id: hadolint
@@ -41,15 +54,23 @@ jobs:
           no-color: true
           no-fail: true
 
-      - name: Validar Hadolint (DL3006 e DL3008)
+      - name: Output (DL3006 e DL3008)
         run: |
           cat lint-report.txt
           if grep -q "DL3006\|DL3008" lint-report.txt; then
-            echo "❌ Erros críticos encontrados no Dockerfile (DL3006 ou DL3008)!"
+            echo "Erros críticos encontrados no Dockerfile (DL3006 ou DL3008)!"
             exit 1
           else
-            echo "✅ Dockerfile passou no lint!"
+            echo "Dockerfile passou no lint!"
           fi
+
+      - name: Build
+        uses: docker/build-push-action@v6.18.0
+        with:
+          context: .
+          file: ./Dockerfile
+          load: true
+          tags: ${{ env.REGISTRY }}/${{ env.OWNER }}/${{ env.IMAGE_NAME }}:${{ env.TAG }} 
           
       # AQUI VAI O CÓDIGO DO DESAFIO :)
 
