@@ -21,6 +21,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Docker Login
+      uses: docker/login-action@v3.6.0
+      with:
+        registry: ${{ env.REGISTRY }}
+        username: brasleiro01
+        password: ${{ env.TOKEN_PAT }}
+          
       # AQUI VAI O CÓDIGO DO DESAFIO :)
 
   generate-certificate: # DAQUI PARA BAIXO, NÃO ALTERAR
