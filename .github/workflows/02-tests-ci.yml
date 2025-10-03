@@ -23,7 +23,7 @@ jobs:
       - name: "Setup Node"
         uses: actions/setup-node@v5
         with:
-          node-version: ${{env.NODE_VERSION}}
+          node-version: ${{ env.NODE_VERSION }}
 
       - name: "Instalar dependencias"
         run: npm ci
