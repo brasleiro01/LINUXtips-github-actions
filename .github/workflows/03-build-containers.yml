@@ -75,7 +75,7 @@ jobs:
         uses: aquasecurity/trivy-action@0.33.1
         with:
           scan-type: image
-          image-ref: ${{ env.REGISTRY }}/${{ env.OWNER }}/${{ secrets.IMAGE_NAME }}:${{ env.TAG }}
+          image-ref: ${{ env.REGISTRY }}/${{ env.OWNER }}/${{ env.IMAGE_NAME }}:${{ env.TAG }}
           severity: CRITICAL
           exit-code: 1
           format: table
