@@ -31,6 +31,11 @@ jobs:
           username: brasleiro01
           password: ${{ secrets.TOKEN_PAT }}
 
+      - name: Rodar Hadolint 1
+        uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: Dockerfile
+      
       - name: Rodar Hadolint
         run: |
           docker run --rm -i hadolint/hadolint < Dockerfile > lint-report.txt || true
