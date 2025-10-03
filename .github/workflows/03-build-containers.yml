@@ -22,11 +22,11 @@ jobs:
 
     steps:
       - name: Docker Login
-      uses: docker/login-action@v3.6.0
-      with:
-        registry: ${{ env.REGISTRY }}
-        username: brasleiro01
-        password: ${{ env.TOKEN_PAT }}
+        uses: docker/login-action@v3.6.0
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: brasleiro01
+          password: ${{ env.TOKEN_PAT }}
           
       # AQUI VAI O CÓDIGO DO DESAFIO :)
 
