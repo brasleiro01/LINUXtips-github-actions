@@ -70,7 +70,24 @@ jobs:
           context: .
           file: ./Dockerfile
           load: true
-          tags: ${{ env.REGISTRY }}/${{ env.OWNER }}/${{ env.IMAGE_NAME }}:${{ env.TAG }} 
+          tags: ${{ env.REGISTRY }}/${{ env.OWNER }}/${{ env.IMAGE_NAME }}:${{ env.TAG }}
+
+      - name: Scan de vulnerabilidades com Trivy
+        uses: aquasecurity/trivy-action@0.33.1
+        with:
+          scan-type: image
+          image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE }}:${{ env.TAG }}
+          severity: CRITICAL
+          exit-code: 1
+          format: table
+          output: trivy-report.txt
+          ignore-unfixed: true
+
+      - name: Upload relatório Trivy
+        uses: actions/upload-artifact@v4
+        with:
+          name: trivy-report
+          path: trivy-report.txt
           
       # AQUI VAI O CÓDIGO DO DESAFIO :)
 
