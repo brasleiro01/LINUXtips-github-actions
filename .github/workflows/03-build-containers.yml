@@ -30,7 +30,7 @@ jobs:
           OWNER=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
           REPO=$(echo "${{ github.event.repository.name }}" | tr '[:upper:]' '[:lower:]')
           REGISTRY=ghcr.io
-          TAG=${github.sha}
+          TAG=${GITHUB_SHA}
 
           echo "REGISTRY=$REGISTRY" >> $GITHUB_ENV
           echo "OWNER=$OWNER" >> $GITHUB_ENV
